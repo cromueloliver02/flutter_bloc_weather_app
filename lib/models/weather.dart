@@ -23,14 +23,14 @@ class Weather extends Equatable {
 
   factory Weather.initial() {
     return Weather(
-      name: name,
-      description: description,
-      country: country,
-      icon: icon,
-      temp: temp,
-      tempMin: tempMin,
-      tempMax: tempMax,
-      lastUpdated: lastUpdated,
+      name: '',
+      description: '',
+      country: '',
+      icon: '',
+      temp: 100.0,
+      tempMin: 100.0,
+      tempMax: 100.0,
+      lastUpdated: DateTime(1970),
     );
   }
 
