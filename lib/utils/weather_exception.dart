@@ -1,7 +1,7 @@
-class CustomHttpException implements Exception {
+class WeatherException implements Exception {
   String message;
 
-  CustomHttpException({this.message = 'Someting went wrong'}) {
+  WeatherException({this.message = 'Someting went wrong'}) {
     message = 'Weather Exception: $message';
   }
 

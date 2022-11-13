@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 class Weather extends Equatable {
@@ -90,9 +92,10 @@ class Weather extends Equatable {
     return result;
   }
 
-  factory Weather.fromJson(Map<String, dynamic> json) {
-    final weather = json['weather'][0];
-    final main = json['main'];
+  factory Weather.fromJson(String json) {
+    final Map<String, dynamic> map = jsonDecode(json);
+    final weather = map['weather'][0];
+    final main = map['main'];
 
     return Weather(
       name: '',

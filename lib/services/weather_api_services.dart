@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weather_app/models/weather.dart';
-import 'package:weather_app/utils/custom_http_exception.dart';
-import 'package:weather_app/utils/http_error_handler.dart';
 import '../models/direct_geocoding.dart';
+import '../utils/http_error_handler.dart';
+import '../utils/weather_exception.dart';
 import '../utils/constants.dart';
 
 class WeatherApiServices {
@@ -15,9 +14,9 @@ class WeatherApiServices {
     required this.httpClient,
   });
 
-  Future<DirectGeocoding> getDirectGeocoding(String city) async {
+  Future<String> getDirectGeocoding(String city) async {
     final uri = Uri(
-      scheme: 'http',
+      scheme: 'https',
       host: kApiHost,
       path: '/geo/1.0/direct',
       queryParameters: {
@@ -37,20 +36,20 @@ class WeatherApiServices {
       final responseBody = jsonDecode(response.body);
 
       if (responseBody.isEmpty) {
-        throw CustomHttpException(message: 'Cannot get the location of $city');
+        throw WeatherException(message: 'Cannot get the location of $city');
       }
 
-      final directGeocoding = DirectGeocoding.fromJson(responseBody);
+      final directGeocodingJson = response.body;
 
-      return directGeocoding;
+      return directGeocodingJson;
     } catch (err) {
       rethrow;
     }
   }
 
-  Future<Weather> getWeather(DirectGeocoding directGeocoding) async {
+  Future<String> getWeather(DirectGeocoding directGeocoding) async {
     final uri = Uri(
-      scheme: 'http',
+      scheme: 'https',
       host: kApiHost,
       path: '/data/2.5/weather',
       queryParameters: {
@@ -68,11 +67,9 @@ class WeatherApiServices {
         throw Exception(httpErrorHandler(response));
       }
 
-      final weatherJson = jsonDecode(response.body);
+      final weatherJson = response.body;
 
-      final Weather weather = Weather.fromJson(weatherJson);
-
-      return weather;
+      return weatherJson;
     } catch (err) {
       rethrow;
     }

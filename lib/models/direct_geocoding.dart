@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 class DirectGeocoding extends Equatable {
@@ -21,8 +23,8 @@ class DirectGeocoding extends Equatable {
     return 'DirectGeocoding(name: $name, country: $country, lon: $lon, lat: $lat)';
   }
 
-  factory DirectGeocoding.fromJson(List<dynamic> json) {
-    final map = json[0];
+  factory DirectGeocoding.fromJson(String json) {
+    final map = jsonDecode(json)[0];
 
     return DirectGeocoding(
       name: map['name'] ?? '',

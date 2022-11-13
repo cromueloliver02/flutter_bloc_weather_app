@@ -1,4 +1,4 @@
-const kApiHost = 'api.openweathermap.com';
-const kIconHost = 'www.openweathermap.com';
+const kApiHost = 'api.openweathermap.org';
+const kIconHost = 'www.openweathermap.org';
 const kUnit = 'metric';
 const kLimit = '1';
