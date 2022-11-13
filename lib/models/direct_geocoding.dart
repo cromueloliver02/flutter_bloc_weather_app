@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class DirectoryGeocoding extends Equatable {
+class DirectGeocoding extends Equatable {
   final String name;
   final String country;
   final double lon;
   final double lat;
 
-  const DirectoryGeocoding({
+  const DirectGeocoding({
     required this.name,
     required this.country,
     required this.lon,
@@ -18,13 +18,13 @@ class DirectoryGeocoding extends Equatable {
 
   @override
   String toString() {
-    return 'DirectoryGeocoding(name: $name, country: $country, lon: $lon, lat: $lat)';
+    return 'DirectGeocoding(name: $name, country: $country, lon: $lon, lat: $lat)';
   }
 
-  factory DirectoryGeocoding.fromJson(List<dynamic> json) {
+  factory DirectGeocoding.fromJson(List<dynamic> json) {
     final map = json[0];
 
-    return DirectoryGeocoding(
+    return DirectGeocoding(
       name: map['name'] ?? '',
       country: map['country'] ?? '',
       lon: map['lon']?.toDouble() ?? 0.0,
