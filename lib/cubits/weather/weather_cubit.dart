@@ -28,7 +28,7 @@ class WeatherCubit extends Cubit<WeatherState> {
         status: WeatherStatus.loaded,
       ));
 
-      print('weather $weather');
+      if (kDebugMode) print('weather $weather');
     } on CustomError catch (err) {
       emit(state.copyWith(
         status: WeatherStatus.error,

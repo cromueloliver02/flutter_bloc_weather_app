@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recase/recase.dart';
+import 'package:weather_app/cubits/temp_settings/temp_settings_cubit.dart';
 
 import '../cubits/weather/weather_cubit.dart';
 import '../pages/pages.dart';
@@ -25,6 +26,8 @@ class _HomePageState extends State<HomePage> {
       await weatherCubit.fetchWeather(city);
     }
   }
+
+  void _goToSettingsPage() => Navigator.pushNamed(context, SettingsPage.id);
 
   void _weatherListener(BuildContext ctx, WeatherState state) {
     if (state.status == WeatherStatus.error) {
@@ -130,6 +133,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   String _showTemperature(double temp) {
+    final tempUnit = context.watch<TempSettingsCubit>().state.tempUnit;
+
+    if (tempUnit == TempUnit.fahrenheit) return '${temp.toStringAsFixed(2)} ℉';
+
     return '${temp.toStringAsFixed(2)} ℃';
   }
 
@@ -150,6 +157,13 @@ class _HomePageState extends State<HomePage> {
             onPressed: _goToSearchPage,
             icon: const Icon(
               Icons.search,
+              size: 30,
+            ),
+          ),
+          IconButton(
+            onPressed: _goToSettingsPage,
+            icon: const Icon(
+              Icons.settings,
               size: 30,
             ),
           ),

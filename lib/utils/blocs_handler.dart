@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 import '../cubits/weather/weather_cubit.dart';
+import '../cubits/temp_settings/temp_settings_cubit.dart';
 import '../repositories/weather_repository.dart';
 import '../services/weather_api_services.dart';
 
@@ -21,6 +22,9 @@ class BlocsHandler {
       create: (ctx) => WeatherCubit(
         weatherRepository: ctx.read<WeatherRepository>(),
       ),
+    ),
+    BlocProvider<TempSettingsCubit>(
+      create: (ctx) => TempSettingsCubit(),
     ),
   ];
 }
