@@ -38,7 +38,41 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: const Center(child: Text('HOME')),
+      body: BlocConsumer<WeatherCubit, WeatherState>(
+        listener: (ctx, state) {
+          if (state.status == WeatherStatus.error) {
+            showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                content: Text(state.error.errMsg),
+              ),
+            );
+          }
+        },
+        builder: (ctx, state) {
+          if (state.status == WeatherStatus.initial ||
+              state.status == WeatherStatus.error ||
+              state.weather.name.isEmpty) {
+            return const Center(
+              child: Text(
+                'Select a city',
+                style: TextStyle(fontSize: 20),
+              ),
+            );
+          }
+
+          if (state.status == WeatherStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          return Center(
+            child: Text(
+              state.weather.temp.toString(),
+              style: const TextStyle(fontSize: 18),
+            ),
+          );
+        },
+      ),
     );
   }
 }
