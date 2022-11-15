@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './utils/blocs_handler.dart';
+import './utils/routes_handler.dart';
 
 import 'pages/pages.dart';
 
@@ -13,6 +14,7 @@ class WeatherApp extends StatefulWidget {
 
 class _WeatherAppState extends State<WeatherApp> {
   final _blocsHandler = BlocsHandler();
+  final _routesHandler = RoutesHandler();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,8 @@ class _WeatherAppState extends State<WeatherApp> {
             primarySwatch: Colors.blue,
             scaffoldBackgroundColor: Colors.grey[500],
           ),
-          home: const HomePage(),
+          initialRoute: HomePage.id,
+          routes: _routesHandler.routes,
         ),
       ),
     );

@@ -9,7 +9,9 @@ class BlocsHandler {
   final List<RepositoryProvider> repositoryProviders = [
     RepositoryProvider<WeatherRepository>(
       create: (ctx) => WeatherRepository(
-        weatherApiServices: WeatherApiServices(httpClient: http.Client()),
+        weatherApiServices: WeatherApiServices(
+          httpClient: http.Client(),
+        ),
       ),
     ),
   ];

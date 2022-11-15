@@ -1,6 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../repositories/weather_repository.dart';
 
@@ -33,6 +34,7 @@ class WeatherCubit extends Cubit<WeatherState> {
         status: WeatherStatus.error,
         error: err,
       ));
+      if (kDebugMode) print('state: $state');
     }
   }
 }
