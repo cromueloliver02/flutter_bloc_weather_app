@@ -24,6 +24,36 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _weatherListener(BuildContext ctx, WeatherState state) {
+    if (state.status == WeatherStatus.error) {
+      showErrorDialog(ctx, state.error.errMsg);
+    }
+  }
+
+  Widget _weatherBuilder(BuildContext ctx, WeatherState state) {
+    if (state.status == WeatherStatus.loading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state.status == WeatherStatus.initial ||
+        state.status == WeatherStatus.error ||
+        state.weather.name.isEmpty) {
+      return const Center(
+        child: Text(
+          'Select a city',
+          style: TextStyle(fontSize: 20),
+        ),
+      );
+    }
+
+    return Center(
+      child: Text(
+        state.weather.temp.toString(),
+        style: const TextStyle(fontSize: 18),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,34 +70,8 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: BlocConsumer<WeatherCubit, WeatherState>(
-        listener: (ctx, state) {
-          if (state.status == WeatherStatus.error) {
-            showErrorDialog(ctx, state.error.errMsg);
-          }
-        },
-        builder: (ctx, state) {
-          if (state.status == WeatherStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (state.status == WeatherStatus.initial ||
-              state.status == WeatherStatus.error ||
-              state.weather.name.isEmpty) {
-            return const Center(
-              child: Text(
-                'Select a city',
-                style: TextStyle(fontSize: 20),
-              ),
-            );
-          }
-
-          return Center(
-            child: Text(
-              state.weather.temp.toString(),
-              style: const TextStyle(fontSize: 18),
-            ),
-          );
-        },
+        listener: _weatherListener,
+        builder: _weatherBuilder,
       ),
     );
   }
