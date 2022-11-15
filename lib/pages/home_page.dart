@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/pages/pages.dart';
 
 import '../cubits/weather/weather_cubit.dart';
+import '../pages/pages.dart';
+import '../utils/functions.dart';
 
 class HomePage extends StatefulWidget {
   static const id = '/';
@@ -41,15 +42,14 @@ class _HomePageState extends State<HomePage> {
       body: BlocConsumer<WeatherCubit, WeatherState>(
         listener: (ctx, state) {
           if (state.status == WeatherStatus.error) {
-            showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                content: Text(state.error.errMsg),
-              ),
-            );
+            showErrorDialog(ctx, state.error.errMsg);
           }
         },
         builder: (ctx, state) {
+          if (state.status == WeatherStatus.loading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
           if (state.status == WeatherStatus.initial ||
               state.status == WeatherStatus.error ||
               state.weather.name.isEmpty) {
@@ -59,10 +59,6 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 20),
               ),
             );
-          }
-
-          if (state.status == WeatherStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
           }
 
           return Center(

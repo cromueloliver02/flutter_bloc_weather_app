@@ -27,7 +27,7 @@ class _WeatherAppState extends State<WeatherApp> {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: Colors.grey[500],
+            scaffoldBackgroundColor: Colors.grey[300],
           ),
           initialRoute: HomePage.id,
           routes: _routesHandler.routes,
