@@ -37,9 +37,9 @@ class _HomePageState extends State<HomePage> {
   String _showTemperature(double temp) {
     final tempUnit = context.watch<TempSettingsBloc>().state.tempUnit;
 
-    if (tempUnit == TempUnit.fahrenheit) return '${temp.toStringAsFixed(2)} ℉';
+    if (tempUnit == TempUnit.celsius) return '${temp.toStringAsFixed(2)} ℃';
 
-    return '${((temp * 9 / 5) + 32).toStringAsFixed(2)} ℃';
+    return '${((temp * 9 / 5) + 32).toStringAsFixed(2)} ℉';
   }
 
   Widget _showIcon(String icon) => FadeInImage.assetNetwork(
