@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import './utils/blocs_handler.dart';
 import './utils/routes_handler.dart';
-
+import 'cubits/theme/theme_cubit.dart';
 import 'pages/pages.dart';
 
 class WeatherApp extends StatefulWidget {
@@ -22,15 +23,18 @@ class _WeatherAppState extends State<WeatherApp> {
       providers: _blocsHandler.repositoryProviders,
       child: MultiBlocProvider(
         providers: _blocsHandler.blocProviders,
-        child: MaterialApp(
-          title: 'Weather App',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            scaffoldBackgroundColor: Colors.grey[300],
+        child: BlocSelector<ThemeCubit, ThemeState, AppTheme>(
+          selector: (state) => state.appTheme,
+          builder: (ctx, appTheme) => MaterialApp(
+            title: 'Weather App',
+            debugShowCheckedModeBanner: false,
+            themeMode:
+                appTheme == AppTheme.light ? ThemeMode.light : ThemeMode.dark,
+            theme: ThemeData.light(),
+            darkTheme: ThemeData.dark(),
+            initialRoute: HomePage.id,
+            routes: _routesHandler.routes,
           ),
-          initialRoute: HomePage.id,
-          routes: _routesHandler.routes,
         ),
       ),
     );

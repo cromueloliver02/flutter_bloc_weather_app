@@ -29,7 +29,7 @@ class Weather extends Equatable {
       description: '',
       country: '',
       icon: '',
-      temp: 100.0,
+      temp: 10.0,
       tempMin: 100.0,
       tempMax: 100.0,
       lastUpdated: DateTime(1970),

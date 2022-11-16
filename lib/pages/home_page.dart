@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:recase/recase.dart';
-import 'package:weather_app/cubits/temp_settings/temp_settings_cubit.dart';
 
 import '../cubits/weather/weather_cubit.dart';
+import '../cubits/temp_settings/temp_settings_cubit.dart';
 import '../pages/pages.dart';
 import '../utils/functions.dart';
 import '../utils/constants.dart';
@@ -151,6 +151,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('HOME'),
         actions: [
           IconButton(
