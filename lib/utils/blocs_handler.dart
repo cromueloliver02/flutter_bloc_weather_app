@@ -28,9 +28,7 @@ class BlocsHandler {
       create: (ctx) => TempSettingsCubit(),
     ),
     BlocProvider<ThemeCubit>(
-      create: (ctx) => ThemeCubit(
-        weatherCubit: ctx.read<WeatherCubit>(),
-      ),
+      create: (ctx) => ThemeCubit(),
     ),
   ];
 }
