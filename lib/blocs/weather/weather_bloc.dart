@@ -1,27 +1,31 @@
-// ignore: depend_on_referenced_packages
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../repositories/weather_repository.dart';
-
 import '../../models/custom_error.dart';
 import '../../models/weather.dart';
 
+part 'weather_event.dart';
 part 'weather_state.dart';
 
-class WeatherCubit extends Cubit<WeatherState> {
+class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final WeatherRepository weatherRepository;
 
-  WeatherCubit({
+  WeatherBloc({
     required this.weatherRepository,
-  }) : super(WeatherState.initial());
+  }) : super(WeatherState.initial()) {
+    on<FetchWeatherEvent>(_fetchWeather);
+  }
 
-  Future<void> fetchWeather(String city) async {
+  Future<void> _fetchWeather(
+    FetchWeatherEvent event,
+    Emitter<WeatherState> emit,
+  ) async {
     emit(state.copyWith(status: WeatherStatus.loading));
 
     try {
-      final Weather weather = await weatherRepository.fetchWeather(city);
+      final Weather weather = await weatherRepository.fetchWeather(event.city);
 
       emit(state.copyWith(
         weather: weather,

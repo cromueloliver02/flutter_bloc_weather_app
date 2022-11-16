@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import '../cubits/theme/theme_cubit.dart';
-import '../cubits/weather/weather_cubit.dart';
-import '../cubits/temp_settings/temp_settings_cubit.dart';
+import '../blocs/theme/theme_bloc.dart';
+import '../blocs/weather/weather_bloc.dart';
+import '../blocs/temp_settings/temp_settings_bloc.dart';
 import '../repositories/weather_repository.dart';
 import '../services/weather_api_services.dart';
 
@@ -19,16 +19,18 @@ class BlocsHandler {
   ];
 
   final List<BlocProvider> blocProviders = [
-    BlocProvider<WeatherCubit>(
-      create: (ctx) => WeatherCubit(
+    BlocProvider<WeatherBloc>(
+      create: (ctx) => WeatherBloc(
         weatherRepository: ctx.read<WeatherRepository>(),
       ),
     ),
-    BlocProvider<TempSettingsCubit>(
-      create: (ctx) => TempSettingsCubit(),
+    BlocProvider<TempSettingsBloc>(
+      create: (ctx) => TempSettingsBloc(),
     ),
-    BlocProvider<ThemeCubit>(
-      create: (ctx) => ThemeCubit(),
+    BlocProvider<ThemeBloc>(
+      create: (ctx) => ThemeBloc(
+        weatherBloc: ctx.read<WeatherBloc>(),
+      ),
     ),
   ];
 }

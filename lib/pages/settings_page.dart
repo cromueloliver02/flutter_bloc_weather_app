@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../cubits/temp_settings/temp_settings_cubit.dart';
+import '../blocs/blocs.dart';
 
 class SettingsPage extends StatelessWidget {
   static const id = '/settings';
@@ -17,13 +17,12 @@ class SettingsPage extends StatelessWidget {
         child: ListTile(
           title: const Text('Temperature Unit'),
           subtitle: const Text('Celsius/Fahrenheit (Default: Celsius)'),
-          trailing:
-              BlocSelector<TempSettingsCubit, TempSettingsState, TempUnit>(
+          trailing: BlocSelector<TempSettingsBloc, TempSettingsState, TempUnit>(
             selector: (state) => state.tempUnit,
             builder: (ctx, tempUnit) => Switch(
               value: tempUnit == TempUnit.celsius,
               onChanged: (value) =>
-                  ctx.read<TempSettingsCubit>().toggleTempUnit(),
+                  ctx.read<TempSettingsBloc>().add(ToggleTempUnitEvent()),
             ),
           ),
         ),
