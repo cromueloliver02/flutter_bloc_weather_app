@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
 
     if (tempUnit == TempUnit.fahrenheit) return '${temp.toStringAsFixed(2)} ℉';
 
-    return '${temp.toStringAsFixed(2)} ℃';
+    return '${((temp * 9 / 5) + 32).toStringAsFixed(2)} ℃';
   }
 
   Widget _showIcon(String icon) => FadeInImage.assetNetwork(
