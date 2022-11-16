@@ -1,7 +1,7 @@
 class WeatherException implements Exception {
   String message;
 
-  WeatherException({this.message = 'Someting went wrong'}) {
+  WeatherException([this.message = 'Something went wrong']) {
     message = 'Weather Exception: $message';
   }
 

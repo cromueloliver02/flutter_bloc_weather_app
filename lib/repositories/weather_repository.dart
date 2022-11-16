@@ -18,9 +18,9 @@ class WeatherRepository {
 
       final tempWeatherJson =
           await weatherApiServices.getWeather(directGeocoding);
-      final Weather tempWeather = Weather.fromJson(tempWeatherJson);
+      final Weather temporaryWeather = Weather.fromJson(tempWeatherJson);
 
-      final Weather weather = tempWeather.copyWith(
+      final Weather weather = temporaryWeather.copyWith(
         name: directGeocoding.name,
         country: directGeocoding.country,
       );

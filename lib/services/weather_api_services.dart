@@ -30,13 +30,13 @@ class WeatherApiServices {
       final http.Response response = await httpClient.get(uri);
 
       if (response.statusCode != 200) {
-        throw Exception(httpErrorHandler(response));
+        throw Exception(httpErrorMessageHandler(response));
       }
 
-      final responseBody = jsonDecode(response.body);
+      final responseBody = jsonDecode(response.body) as List;
 
       if (responseBody.isEmpty) {
-        throw WeatherException(message: 'Cannot get the location of $city');
+        throw WeatherException('Cannot get the location of $city');
       }
 
       final directGeocodingJson = response.body;
@@ -64,7 +64,7 @@ class WeatherApiServices {
       final http.Response response = await httpClient.get(uri);
 
       if (response.statusCode != 200) {
-        throw Exception(httpErrorHandler(response));
+        throw Exception(httpErrorMessageHandler(response));
       }
 
       final weatherJson = response.body;
