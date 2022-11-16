@@ -28,9 +28,7 @@ class BlocsHandler {
       create: (ctx) => TempSettingsBloc(),
     ),
     BlocProvider<ThemeBloc>(
-      create: (ctx) => ThemeBloc(
-        weatherBloc: ctx.read<WeatherBloc>(),
-      ),
+      create: (ctx) => ThemeBloc(),
     ),
   ];
 }
